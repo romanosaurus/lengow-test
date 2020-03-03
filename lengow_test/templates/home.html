@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Orders</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <ol class="breadcrumb my-4">
+          <li class="breadcrumb-item active">Boards</li>
+      </ol>
+      <div class="jumbotron">
+        <form method="get">
+          <p class="lead">Filters</p>
+          <div class="form-group row">
+            {% for filter in filter.form %}
+              <div style="margin: 5px" class="col-3">
+                {{ filter.name }}
+                {{ filter }}
+              </div>
+            {% endfor %}
+          </div>
+          <button class="btn btn-secondary" type="submit">Search</button>
+        </form>
+      </div>
+      <br />
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+              <th>Order Id</th>
+              <th>Order MrId</th>
+              <th>Order Refid</th>
+              <th>Id Flux</th>
+              <th>Marketplace</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in filter.qs %}
+            <tr>
+              <td>{{ order.order_id }}</td>
+              <td>{{ order.order_mrid }}</td>
+              <td>{{ order.order_refid }}</td>
+              <td>{{ order.id_flux }}</td>
+                <td>{{ order.marketplace }}</td>
+              <td><a href="{% url 'order_detail' order.id %}">Detail</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="/add_order"><button type="button" class="btn btn-primary">Add an Order</button></a>
+    </div>
+  </body>
+</html>
